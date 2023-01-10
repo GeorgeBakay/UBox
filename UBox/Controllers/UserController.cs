@@ -1,0 +1,110 @@
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using UBox.Date;
+using UBox.Date.Models;
+using UBox.ViewModels;
+
+namespace UBox.Controllers
+{
+    public class UserController : Controller
+    {
+        private AppDBContext db;
+
+        public UserController(AppDBContext context)
+        {
+            db = context;
+        }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                int hash = model.Password.GetHashCode();
+                User user = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName && u.Password == hash);
+                if (user != null) 
+                {
+                    await Authenticate(model.UserName); // аутентификация
+
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Некоректний логін або пароль");
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                User user = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName || u.Email == model.Email);
+
+                if(model.Password.Length < 8)
+                {
+                    ModelState.AddModelError("", "Пароль повинен містити мінімум 8 символів");
+                }
+                else if (!model.Email.Contains("@"))
+                {
+                    ModelState.AddModelError("", "Формат email введений невірно");
+                }
+                else if (user == null)
+                {
+                    int hash = model.Password.GetHashCode();
+      
+                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash,DateCreate = DateTime.Now }); 
+                    await db.SaveChangesAsync();
+
+                    await Authenticate(model.UserName); // аутентификация
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                    ModelState.AddModelError("", "Користувач з таким іменем або email вже існує");
+            }
+            return View(model);
+        }
+
+        private async Task Authenticate(string userName)
+        {
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+            };
+            
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+        
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "User");
+        }
+    }
+}

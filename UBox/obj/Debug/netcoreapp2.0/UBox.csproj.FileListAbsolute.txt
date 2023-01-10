@@ -1,0 +1,4 @@
+C:\Users\Георгій\source\repos\UBox\UBox\obj\Debug\netcoreapp2.0\UBox.csprojAssemblyReference.cache
+C:\Users\Георгій\source\repos\UBox\UBox\obj\Debug\netcoreapp2.0\UBox.AssemblyInfoInputs.cache
+C:\Users\Георгій\source\repos\UBox\UBox\obj\Debug\netcoreapp2.0\UBox.AssemblyInfo.cs
+C:\Users\Георгій\source\repos\UBox\UBox\obj\Debug\netcoreapp2.0\UBox.csproj.CoreCompileInputs.cache
