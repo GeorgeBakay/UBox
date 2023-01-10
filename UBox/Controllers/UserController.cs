@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using UBox.Date;
 using UBox.Date.Models;
@@ -34,7 +36,7 @@ namespace UBox.Controllers
         {
             if (ModelState.IsValid)
             {
-                int hash = model.Password.GetHashCode();
+                string hash = getHashCode(model.Password);
                 User user = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName && u.Password == hash);
                 if (user != null) 
                 {
@@ -72,8 +74,8 @@ namespace UBox.Controllers
                 }
                 else if (user == null)
                 {
-                    int hash = model.Password.GetHashCode();
-      
+                    string hash = getHashCode(model.Password);
+
                     db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash,DateCreate = DateTime.Now }); 
                     await db.SaveChangesAsync();
 
@@ -86,7 +88,19 @@ namespace UBox.Controllers
             }
             return View(model);
         }
-
+        private string getHashCode(string s)
+        {
+            byte[] bytes = Encoding.Unicode.GetBytes(s);
+            MD5CryptoServiceProvider CSP = new MD5CryptoServiceProvider();
+            byte[] byteHash = CSP.ComputeHash(bytes);
+            StringBuilder sbHash = new StringBuilder();
+            foreach (byte b in byteHash)
+            {
+                sbHash.Append(string.Format("{0:x2}", b));
+            }
+            string hash = sbHash.ToString();
+            return hash;
+        }
         private async Task Authenticate(string userName)
         {
             // создаем один claim
