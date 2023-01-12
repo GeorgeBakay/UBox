@@ -75,8 +75,12 @@ namespace UBox.Controllers
                 else if (user == null)
                 {
                     string hash = getHashCode(model.Password);
+                    //var file = model.Image;
+                    //var fileStream = file.OpenReadStream();
+                    //byte[] bytes = new byte[file.Length];
+                    //fileStream.Read(bytes, 0, (int)file.Length);
 
-                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash,DateCreate = DateTime.Now }); 
+                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash,/*Image = bytes,*/DateCreate = DateTime.Now }); 
                     await db.SaveChangesAsync();
 
                     await Authenticate(model.UserName); // аутентификация

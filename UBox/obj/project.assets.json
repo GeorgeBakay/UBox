@@ -6261,11 +6261,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\George\\Source\\Repos\\GeorgeBakay\\UBox\\UBox\\UBox.csproj",
+      "projectUniqueName": "C:\\Users\\George\\source\\repos\\GeorgeBakay\\UBox\\UBox\\UBox.csproj",
       "projectName": "UBox",
-      "projectPath": "C:\\Users\\George\\Source\\Repos\\GeorgeBakay\\UBox\\UBox\\UBox.csproj",
+      "projectPath": "C:\\Users\\George\\source\\repos\\GeorgeBakay\\UBox\\UBox\\UBox.csproj",
       "packagesPath": "C:\\Users\\George\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\George\\Source\\Repos\\GeorgeBakay\\UBox\\UBox\\obj\\",
+      "outputPath": "C:\\Users\\George\\source\\repos\\GeorgeBakay\\UBox\\UBox\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\George\\AppData\\Roaming\\NuGet\\NuGet.Config",

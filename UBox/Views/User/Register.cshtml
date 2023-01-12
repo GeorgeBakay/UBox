@@ -29,8 +29,13 @@
             </div>
             <div class="item">
                 <label asp-for="Email">Введіть Email</label><br />
-                <input type="text" asp-for="Email" />
+                <input type="email" asp-for="Email" />
                 <span asp-validation-for="Email" />
+            </div>
+            <div class="item">
+                <label asp-for="Image">Виберіть мармизку</label><br />
+                <input type="file" asp-for="Image" />
+                <span asp-validation-for="Image" />
             </div>
             <div class="item">
                 <label asp-for="Password">Введіть пароль</label><br />
@@ -42,6 +47,7 @@
                 <input asp-for="ConfirmPassword" />
                 <span asp-validation-for="ConfirmPassword" />
             </div>
+
             <div class="item">
                 <input class="sub" type="submit" value="Реєстрація" />
             </div>

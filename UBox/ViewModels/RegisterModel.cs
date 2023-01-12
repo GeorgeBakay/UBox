@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,6 +19,10 @@ namespace UBox.ViewModels
         [Required(ErrorMessage = "Не введений пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+
+        [DataType(DataType.Upload)]
+        public IFormFile Image { get; set; }
 
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Пароль введений невірно")]
