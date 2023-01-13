@@ -11,6 +11,5 @@ namespace UBox.ViewModels
     {
         public User user { get; set; }
         public string imageDataUrl { get; set; }
-
     }
 }

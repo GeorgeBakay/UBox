@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,9 +22,9 @@ namespace UBox.Controllers
     public class UserController : Controller
     {
         private AppDBContext db;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IHostEnvironment _hostingEnvironment;
 
-        public UserController(AppDBContext context, IHostingEnvironment hostingEnvironment)
+        public UserController(AppDBContext context, IHostEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
             db = context;
@@ -91,7 +91,7 @@ namespace UBox.Controllers
                     }
                     else
                     {
-                        var path = Path.Combine(_hostingEnvironment.WebRootPath, "img", "avatar.jpg");
+                        var path = Path.Combine(_hostingEnvironment.ContentRootPath, "img", "avatar.jpg");
                         var imageFileStream = System.IO.File.OpenRead(path);
                         bytes = new byte[imageFileStream.Length];
                         imageFileStream.Read(bytes, 0, (int)imageFileStream.Length);

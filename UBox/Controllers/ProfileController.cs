@@ -14,12 +14,17 @@ namespace UBox.Controllers
     public class ProfileController : Controller
     {
         private readonly IProfile _profile;
+
+
         public ProfileController(IProfile profile)
         {
             _profile = profile;
         }
+
+        
+        [HttpGet]
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        public async Task<ViewResult> MyProfile()
+        public async Task<IActionResult> MyProfile()
         {
             ProfileViewModel obj = new ProfileViewModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
@@ -30,5 +35,7 @@ namespace UBox.Controllers
             }
             return View(obj);
         }
+
+
     }
 }

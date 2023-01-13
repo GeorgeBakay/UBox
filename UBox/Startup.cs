@@ -52,7 +52,7 @@ namespace UBox
                     options.Cookie.Name = "Cookie";
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
                });
-            services.AddTransient<IProfile,ProfileRepository>();
+            services.AddScoped<IProfile,ProfileRepository>();
             services.AddControllersWithViews();
         }
 
