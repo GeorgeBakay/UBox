@@ -10,7 +10,7 @@ namespace UBox.ViewModels
     public class ProfileIconModel
     {
         public User user { get; set; }
-        public System.Drawing.Image image { get; set; }
+        public string imageDataUrl { get; set; }
 
     }
 }

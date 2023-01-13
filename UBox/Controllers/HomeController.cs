@@ -30,20 +30,10 @@ namespace UBox.Controllers
         {
             ProfileIconModel obj = new ProfileIconModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
-            obj.image = byteArrayToImage(obj.user.Image);
+            string imreBase64Data = Convert.ToBase64String(obj.user.Image);
+            obj.imageDataUrl = string.Format("data:image/png;base64,{0}", imreBase64Data); ;
             return PartialView(obj);
         }
-        public Image byteArrayToImage(byte[] byteArrayIn)
-        {
-            Image returnImage = null;
-            try
-            {
-                MemoryStream ms = new MemoryStream(byteArrayIn, 0, byteArrayIn.Length);
-                ms.Write(byteArrayIn, 0, byteArrayIn.Length);
-                returnImage = Image.FromStream(ms);//Exception occurs here
-            }
-            catch { }
-            return returnImage;
-        }
+      
     }
 }

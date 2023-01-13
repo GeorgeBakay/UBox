@@ -12,16 +12,16 @@ namespace UBox.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly IProfile _Profile;
+        private readonly IProfile _profile;
         public ProfileController(IProfile profile)
         {
-            _Profile = profile;
+            _profile = profile;
         }
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public ViewResult MyProfile()
         {
             ProfileViewModel obj = new ProfileViewModel();
-            obj.user = _Profile.MyProfile(User.Identity.Name);
+            obj.user = _profile.MyProfile(User.Identity.Name);
             return View(obj);
         }
     }
