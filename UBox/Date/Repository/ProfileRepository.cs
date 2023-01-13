@@ -11,11 +11,10 @@ namespace UBox.Date.Repository
 {
     public class ProfileRepository:IProfile
     {
-        private readonly IHttpContextAccessor httpContextAccessor;
         public AppDBContext appDBContext;
-        public ProfileRepository(AppDBContext appDBContext)
+        public ProfileRepository(AppDBContext _appDBContext)
         {
-            this.appDBContext = appDBContext;              
+            this.appDBContext = _appDBContext;              
         }
         public User MyProfile(string UserName) {
             return appDBContext.Users.FirstOrDefault(u => u.UserName == UserName);

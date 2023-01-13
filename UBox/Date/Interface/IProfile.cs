@@ -10,6 +10,7 @@ namespace UBox.Date.Interface
     public interface IProfile
     {
         public User MyProfile(string UserName);
+        
       
     }
 }

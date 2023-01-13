@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -19,9 +22,11 @@ namespace UBox.Controllers
     public class UserController : Controller
     {
         private AppDBContext db;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public UserController(AppDBContext context)
+        public UserController(AppDBContext context, IHostingEnvironment hostingEnvironment)
         {
+            _hostingEnvironment = hostingEnvironment;
             db = context;
         }
         [HttpGet]
@@ -62,6 +67,7 @@ namespace UBox.Controllers
             if (ModelState.IsValid)
             {
                
+               
                 User user = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName || u.Email == model.Email);
 
                 if(model.Password.Length < 8)
@@ -75,12 +81,25 @@ namespace UBox.Controllers
                 else if (user == null)
                 {
                     string hash = getHashCode(model.Password);
-                    //var file = model.Image;
-                    //var fileStream = file.OpenReadStream();
-                    //byte[] bytes = new byte[file.Length];
-                    //fileStream.Read(bytes, 0, (int)file.Length);
+                    byte[] bytes;
+                    if(model.Image != null)
+                    {
+                        var file = model.Image;
+                        var imageFileStream = file.OpenReadStream();
+                        bytes = new byte[file.Length];
+                        imageFileStream.Read(bytes, 0, (int)file.Length);
+                    }
+                    else
+                    {
+                        var path = Path.Combine(_hostingEnvironment.WebRootPath, "img", "avatar.jpg");
+                        var imageFileStream = System.IO.File.OpenRead(path);
+                        bytes = new byte[imageFileStream.Length];
+                        imageFileStream.Read(bytes, 0, (int)imageFileStream.Length);
 
-                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash,/*Image = bytes,*/DateCreate = DateTime.Now }); 
+                    }
+                    
+
+                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash, Image = bytes, DateCreate = DateTime.Now }); 
                     await db.SaveChangesAsync();
 
                     await Authenticate(model.UserName); // аутентификация
