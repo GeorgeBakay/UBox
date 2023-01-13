@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,10 +19,15 @@ namespace UBox.Controllers
             _profile = profile;
         }
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        public ViewResult MyProfile()
+        public async Task<ViewResult> MyProfile()
         {
             ProfileViewModel obj = new ProfileViewModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
+            if(obj.user == null)
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Login", "User");
+            }
             return View(obj);
         }
     }
