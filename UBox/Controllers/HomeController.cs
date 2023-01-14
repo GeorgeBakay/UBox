@@ -23,7 +23,11 @@ namespace UBox.Controllers
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public IActionResult Index()
         {
-            return View();
+            ProfileIconModel obj = new ProfileIconModel();
+            obj.user = _profile.MyProfile(User.Identity.Name);
+            string imreBase64Data = Convert.ToBase64String(obj.user.Image);
+            obj.imageDataUrl = string.Format("data:image/png;base64,{0}", imreBase64Data);
+            return View(obj);
         }
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public IActionResult GetProfileIcon()
@@ -31,7 +35,7 @@ namespace UBox.Controllers
             ProfileIconModel obj = new ProfileIconModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
             string imreBase64Data = Convert.ToBase64String(obj.user.Image);
-            obj.imageDataUrl = string.Format("data:image/png;base64,{0}", imreBase64Data); ;
+            obj.imageDataUrl = string.Format("data:image/png;base64,{0}", imreBase64Data); 
             return PartialView(obj);
         }
       

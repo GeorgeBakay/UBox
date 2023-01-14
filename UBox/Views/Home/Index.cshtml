@@ -1,2 +1,8 @@
-﻿<title>Головна - Ubox</title>
+﻿@model UBox.ViewModels.ProfileIconModel
+@{
+    ViewBag.Title = "Головна - Ubox";
+}
+
+<img  src="@Model.imageDataUrl">
+<p>@Model.user.UserName</p>
 <p>Hello world</p>

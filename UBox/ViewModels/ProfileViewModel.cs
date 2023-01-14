@@ -9,5 +9,6 @@ namespace UBox.ViewModels
     public class ProfileViewModel
     {
         public User user { get; set; }
+        public string imageAvatar { get; set; }
     }
 }

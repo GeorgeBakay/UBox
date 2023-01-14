@@ -28,11 +28,13 @@ namespace UBox.Controllers
         {
             ProfileViewModel obj = new ProfileViewModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
-            if(obj.user == null)
+            if (obj.user == null)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToAction("Login", "User");
             }
+            string imreBase64Data = Convert.ToBase64String(obj.user.Image);
+            obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
             return View(obj);
         }
 

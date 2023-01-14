@@ -1,4 +1,47 @@
 ﻿@model UBox.ViewModels.ProfileViewModel
-<p>@Model.user.UserName</p>
+@{ 
+    ViewBag.Title = "Мій профіль";
+}
+
+
+<div class="head_of_profile">
+    <img />
+    <div class="head_of_profile_nav_bar">
+        <ul>
+            <li>
+                <a class="link" asp-action="Logout" asp-controller="User">Вихід</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="my_profile_content">
+    <div class="my_profile_content_info">
+        <div class="my_profile_content_info_myIcon">
+            <div class="my_profile_content_info_myIcon_avatar">
+                <img src="@Model.imageAvatar"/>
+            </div>
+            <div class="my_profile_content_info_myIcon_name">
+                <p>@Model.user.UserName</p>
+            </div>
+        </div>
+        <div class="my_profile_content_info_myStats">
+
+        </div>
+
+    </div>
+    <div class="my_profile_content_posts">
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
 <p>@Model.user.Email</p>
-<a class="link" asp-action="Logout" asp-controller="User">Вихід</a>
