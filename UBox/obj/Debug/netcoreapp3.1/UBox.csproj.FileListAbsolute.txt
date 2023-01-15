@@ -224,4 +224,3 @@ C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.
 C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.dll
 C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.pdb
 C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.genruntimeconfig.cache
-C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Home\GetProfileIcon.cshtml.g.cs
