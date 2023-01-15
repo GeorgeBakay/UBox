@@ -17,7 +17,6 @@ namespace UBox.Date.Repository
             this.appDBContext = _appDBContext;              
         }
         public User MyProfile(string UserName) {
-
              return appDBContext.Users.FirstOrDefault(u => u.UserName == UserName);
         } 
         

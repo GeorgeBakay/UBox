@@ -15,7 +15,8 @@ namespace UBox.Date.Models
         public string UserName { get; set; }
         [Required]
         public string Email { get; set; }
-        public byte[] Image { get; set; }
+
+     
         [Required]
         [MinLength(8)]
         public string Password { get; set; }

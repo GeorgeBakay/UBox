@@ -5,6 +5,7 @@
 <html>
 <head>
     <link href="~/css/RegLogStyle.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Unica+One&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +35,8 @@
             </div>
             <div class="item">
                 <label asp-for="Image">Виберіть мармизку</label><br />
-                <input type="file" accept=".png,.jpg" asp-for="Image" />
+                <label for="change">-</label>
+                <input class="file_change" type="file" accept=".png,.jpg" asp-for="Image" name="change" />
                 <span asp-validation-for="Image" />
             </div>
             <div class="item">

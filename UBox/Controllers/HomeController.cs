@@ -15,9 +15,11 @@ namespace UBox.Controllers
     public class HomeController : Controller
     {
         private readonly IProfile _profile;
-        public HomeController(IProfile profile)
+        private readonly IAvatarImage _avatar;
+        public HomeController(IProfile profile, IAvatarImage avatar)
         {
             _profile = profile;
+            _avatar = avatar;
         }
 
 
@@ -29,7 +31,7 @@ namespace UBox.Controllers
         {
             ProfileIconModel obj = new ProfileIconModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
-            string imreBase64Data = Convert.ToBase64String(obj.user.Image);
+            string imreBase64Data = Convert.ToBase64String(_avatar.getAvatarImage(obj.user.Id).ImageData);
             obj.imageDataUrl = string.Format("data:image/png;base64,{0}", imreBase64Data);
             return View(obj);
         }

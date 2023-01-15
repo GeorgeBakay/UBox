@@ -97,9 +97,16 @@ namespace UBox.Controllers
                         imageFileStream.Read(bytes, 0, (int)imageFileStream.Length);
 
                     }
-                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash, Image = bytes, DateCreate = DateTime.Now }); 
+                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash, DateCreate = DateTime.Now });
+                    
                     await db.SaveChangesAsync();
 
+
+                    User addUser = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName);
+                    db.AvatarImages.Add(new AvatarImage {ImageData = bytes,UserId = addUser.Id,User = addUser});
+
+
+                    await db.SaveChangesAsync();
                     await Authenticate(model.UserName);
 
                     return RedirectToAction("Index", "Home");

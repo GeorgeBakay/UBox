@@ -53,6 +53,7 @@ namespace UBox
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
                });
             services.AddScoped<IProfile,ProfileRepository>();
+            services.AddScoped<IAvatarImage, AvatarImageRepository>();
             services.AddControllersWithViews();
         }
 

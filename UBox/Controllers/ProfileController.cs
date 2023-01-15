@@ -14,11 +14,13 @@ namespace UBox.Controllers
     public class ProfileController : Controller
     {
         private readonly IProfile _profile;
+        private readonly IAvatarImage _avatar;
 
 
-        public ProfileController(IProfile profile)
+        public ProfileController(IProfile profile, IAvatarImage avatar)
         {
             _profile = profile;
+            _avatar = avatar;
         }
 
         
@@ -33,8 +35,10 @@ namespace UBox.Controllers
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToAction("Login", "User");
             }
-            string imreBase64Data = Convert.ToBase64String(obj.user.Image);
+            string imreBase64Data = Convert.ToBase64String(_avatar.getAvatarImage(obj.user.Id).ImageData);
             obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
+
+
             return View(obj);
         }
 
