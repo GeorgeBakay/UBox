@@ -1,0 +1,156 @@
+﻿.head_of_profile{
+    width:100%;
+    height:230px;
+}
+.head_of_profile:after{
+    display:block;
+    width:90%;
+    border-bottom:solid 1px gray;
+}
+.line{
+    width:90%;
+    margin:0 auto;
+    background-color:gray;
+    height:1px;
+}
+.head_of_profile_nav_bar {
+    position:relative;
+    width: min-content;
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    z-index:1;
+}
+
+.head_of_profile_nav_bar_buttom {
+    margin-left: auto;
+    text-align: center;
+    line-height: 45px;
+    width: 45px;
+    height: 45px;
+    font-size: 35px;
+    transition: color .2s, text-shadow .2s;
+}
+.head_of_profile_nav_bar_content {
+   /* animation-name:show_nav;
+    animation-duration:.3s;*/
+    display: none;
+    width: 200px;
+    background-color: white;
+    border-radius: 7px;
+    box-shadow: 0 0 3px gray;
+}
+.head_of_profile_nav_bar_content ul{
+    list-style:none;
+    width:200px;
+}
+.head_of_profile_nav_bar_content li{
+    animation-name:show_nav;
+    animation-duration:.3s;
+    text-align:center;
+    line-height:45px;
+    width:200px;
+    height:45px;
+}
+
+.head_of_profile_nav_bar_content a{
+    width:200px;
+    height:45px;
+    font-size:20px;
+    transition:color .1s,font-size .2s;
+}
+.head_of_profile_nav_bar_content a:hover{
+    color:#FA6D6D;
+    font-size: 22px;
+}
+.head_of_profile_nav_bar_buttom:hover {
+    color: #FA6D6D;
+    text-shadow: 0 0 2px #FA6D6D;
+}
+.head_of_profile_nav_bar:hover .head_of_profile_nav_bar_content {
+    display: block;
+}
+
+.my_profile_content_info{
+    display:flex;
+    justify-content:space-around;
+}
+.my_profile_content_info_myIcon {
+    display:flex;
+    flex-direction:column;
+    width: min-content;
+    position: relative;
+    top: -125px;
+    text-align: center;
+}
+.my_profile_content_info_myIcon_avatar {
+    animation-name: show_img;
+    animation-duration: .5s;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+    line-height: 250px;
+    background-color: lightgray;
+    border: solid 4px gray;
+}
+.my_profile_content_info_myIcon_avatar img{
+    
+    max-height:100%;
+}
+.my_profile_content_info_myIcon_name{
+    font-size:30px;
+    font-weight:bold;
+}
+@keyframes show_nav{
+    0%{
+        height:0;
+        opacity:0;
+    }
+    100% {
+        width:200px;
+        opacity: 1;
+    }
+}
+@keyframes show_img {
+    0% {
+        width:0;
+        height:0;
+        margin-top:125px;
+    }
+
+    100% {
+        margin-top:0;
+        width: 250px;
+    }
+}
+@media(max-width: 400px){
+    .my_profile_content_info{
+        flex-direction:column;
+        align-items:center;
+    }
+    .my_profile_content_info_myIcon{
+        top:-85px;
+    }
+    .my_profile_content_info_myIcon_avatar {
+        top: 85px;
+        width: 170px;
+        height: 170px;
+    }
+    @keyframes show_img {
+        0% {
+            width: 0;
+            height: 0;
+            margin-top: 85px;
+        }
+
+        100% {
+            margin-top: 0;
+            width: 170px;
+        }
+    }
+}
