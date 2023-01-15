@@ -97,12 +97,10 @@ namespace UBox.Controllers
                         imageFileStream.Read(bytes, 0, (int)imageFileStream.Length);
 
                     }
-                    
-
                     db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash, Image = bytes, DateCreate = DateTime.Now }); 
                     await db.SaveChangesAsync();
 
-                    await Authenticate(model.UserName); // аутентификация
+                    await Authenticate(model.UserName);
 
                     return RedirectToAction("Index", "Home");
                 }
