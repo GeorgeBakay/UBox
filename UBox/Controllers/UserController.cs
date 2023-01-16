@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -86,12 +87,16 @@ namespace UBox.Controllers
                     {
                         var file = model.Image;
                         var imageFileStream = file.OpenReadStream();
-                        bytes = new byte[file.Length];
-                        imageFileStream.Read(bytes, 0, (int)file.Length);
+                        Bitmap image = new Bitmap(imageFileStream);//image value is bitmap type
+                        float compress = 300 / (float)image.Height;
+                        Bitmap resizedImage = new Bitmap(image, new Size((int)(image.Width * compress), 300));
+                        var ms = new MemoryStream();
+                        resizedImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        bytes = ms.GetBuffer();
                     }
                     else
                     {
-                        var path = Path.Combine(_hostingEnvironment.ContentRootPath, "img", "avatar.jpg");
+                        var path = Path.Combine(_hostingEnvironment.ContentRootPath, "wwwroot/img", "avatar.jpg");
                         var imageFileStream = System.IO.File.OpenRead(path);
                         bytes = new byte[imageFileStream.Length];
                         imageFileStream.Read(bytes, 0, (int)imageFileStream.Length);

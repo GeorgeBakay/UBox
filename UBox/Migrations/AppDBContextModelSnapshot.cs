@@ -47,13 +47,6 @@ namespace UBox.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("varchar(2)")
-                        .HasMaxLength(2);
-
                     b.Property<DateTime>("DateCreate")
                         .HasColumnType("datetime2");
 

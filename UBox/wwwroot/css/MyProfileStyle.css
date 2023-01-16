@@ -66,7 +66,7 @@
     color:#FA6D6D;
     font-size: 22px;
 }
-.head_of_profile_nav_bar_buttom:hover {
+.head_of_profile_nav_bar:hover .head_of_profile_nav_bar_buttom {
     color: #FA6D6D;
     text-shadow: 0 0 2px #FA6D6D;
 }
@@ -128,7 +128,7 @@
         width: 250px;
     }
 }
-@media(max-width: 400px){
+@media(max-width: 450px){
     .my_profile_content_info{
         flex-direction:column;
         align-items:center;

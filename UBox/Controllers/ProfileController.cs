@@ -28,14 +28,16 @@ namespace UBox.Controllers
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public async Task<IActionResult> MyProfile()
         {
-            ProfileViewModel obj = new ProfileViewModel();
+            ProfileModel obj = new ProfileModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
+            
             if (obj.user == null)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToAction("Login", "User");
             }
-            string imreBase64Data = Convert.ToBase64String(_avatar.getAvatarImage(obj.user.Id).ImageData);
+            byte[] image = _avatar.getAvatarImage(obj.user.Id).ImageData;
+            string imreBase64Data = Convert.ToBase64String(image);
             obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
 
 

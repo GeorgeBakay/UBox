@@ -19,13 +19,7 @@ namespace UBox.Date.Models
      
         [Required]
         [MinLength(8)]
-        public string Password { get; set; }
-
-        [MaxLength(2)]
-        [Column(TypeName = "varchar(2)")]
-        public string Country { get; set; }
-        public string City { get; set; }
-        
+        public string Password { get; set; }  
         public DateTime DateCreate { get; set; }
     }
 }
