@@ -2,11 +2,6 @@
     width:100%;
     height:230px;
 }
-.head_of_profile:after{
-    display:block;
-    width:90%;
-    border-bottom:solid 1px gray;
-}
 .line{
     width:90%;
     margin:0 auto;
@@ -106,7 +101,60 @@
     font-size:30px;
     font-weight:bold;
 }
-@keyframes show_nav{
+.my_profile_content_info_myStats{
+    margin-top:10px;
+    width:300px;
+    display:flex;
+    justify-content:space-between;
+    align-items:start;
+}
+.my_profile_content_info_myStats div{
+    display:block;
+    text-align:center;
+}
+.my_profile_content_info_myStats div p{
+    font-weight:bold;
+}
+.my_profile_content_posts {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 350px;
+}
+.posts_element{
+    background-color:white;
+    border-radius:20px;
+    margin:0 auto;
+    margin-top:15px;
+    width:320px;
+    height:320px;
+    text-align:center;
+}
+.posts_element_content{
+    margin: 0 auto;
+    margin-top:10px;
+    border-radius:10px;
+    width:300px;
+    height:300px;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+}
+.posts_element p {
+    display:none;
+    width: 90%;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.posts_element_content *{
+    max-height:300px;
+}
+@keyframes show_nav {
     0%{
         height:0;
         opacity:0;
@@ -129,9 +177,12 @@
     }
 }
 @media(max-width: 450px){
-    .my_profile_content_info{
-        flex-direction:column;
-        align-items:center;
+    .head_of_profile{
+        height:150px;
+    }
+    .my_profile_content_info {
+        flex-direction: column;
+        align-items: center;
     }
     .my_profile_content_info_myIcon{
         top:-85px;
@@ -140,6 +191,9 @@
         top: 85px;
         width: 170px;
         height: 170px;
+    }
+    .my_profile_content_posts{
+        grid-template-columns: repeat(1,1fr);
     }
     @keyframes show_img {
         0% {

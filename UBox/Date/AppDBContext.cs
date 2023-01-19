@@ -13,6 +13,8 @@ namespace UBox.Date
         {
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<AvatarImage> AvatarImages{ get; set; }
+        public DbSet<UserAvatarImage> AvatarImages{ get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<UserFollowers> UserFollowers { get; set; }
     }
 }

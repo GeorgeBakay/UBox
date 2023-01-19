@@ -54,6 +54,19 @@
             </div>
         </div>
         <div class="my_profile_content_info_myStats">
+            <div class="info_element">
+                <p>Читачі</p>
+                <span></span>
+            </div>
+            <div class="info_element">
+                <p>Стежить</p>
+                <span></span>
+            </div>
+            <div class="info_element">
+                <p>Дописи</p>
+                <span>@Model.posts.Count</span>
+            </div>
+
 
         </div>
 
@@ -61,7 +74,31 @@
 
 
     <div class="my_profile_content_posts">
-
+        @{ 
+            foreach(var el in Model.posts)
+            {
+                <div class="posts_element">
+                    <div class="posts_element_content">
+                        @{ 
+                        if(el.FileType == ".mp4")
+                        {
+                            <video autoplay loop>
+                                <source src= "@el.PostFilePath" type="video/mp4"/>
+                                Ваш браузер не підтримує цей відео тег
+                            </video>
+                        }
+                        else if(el.FileType == ".jpg" || el.FileType == ".png")
+                        {
+                            <img src="@el.PostFilePath"/>
+                        }
+                    }
+                    </div>
+                    
+                    
+                    <p>@el.Description</p>
+                </div>
+            }
+        }
 
     </div>
 
@@ -69,9 +106,3 @@
 
 
 </div>
-
-
-
-
-
-<p>@Model.user.Email</p>

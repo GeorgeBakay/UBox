@@ -15,12 +15,14 @@ namespace UBox.Controllers
     {
         private readonly IProfile _profile;
         private readonly IAvatarImage _avatar;
+        private readonly IPost _post;
 
 
-        public ProfileController(IProfile profile, IAvatarImage avatar)
+        public ProfileController(IProfile profile, IAvatarImage avatar, IPost post)
         {
             _profile = profile;
             _avatar = avatar;
+            _post = post;
         }
 
         
@@ -41,6 +43,7 @@ namespace UBox.Controllers
             obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
 
 
+            obj.posts = _post.getPosts(User.Identity.Name);
             return View(obj);
         }
 

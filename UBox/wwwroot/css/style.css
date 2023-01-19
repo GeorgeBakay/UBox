@@ -28,6 +28,7 @@ footer{
     flex-direction:column;
     align-items:center;
     min-width:250px;
+    background-color:white;
 }
 
 .logo_desktop{
@@ -68,6 +69,7 @@ header {
     background-color:lightgray;
     width:100%;
     height:100%;
+    overflow-y:scroll;
 }
 @keyframes footer_show{
     0%{
@@ -123,9 +125,10 @@ header {
     .user_info{
         margin-right:10px;
     }
-    footer{
+    footer {
+        background-color:white;
         width:100%;
-        height:50px;
+        height: 50px;
     }
     footer ul{
         width:90%;

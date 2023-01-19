@@ -29,7 +29,7 @@ namespace UBox.Controllers
         {
             _hostingEnvironment = hostingEnvironment;
             db = context;
-        }
+        } 
         [HttpGet]
         public IActionResult Login()
         {
@@ -108,7 +108,7 @@ namespace UBox.Controllers
 
 
                     User addUser = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName);
-                    db.AvatarImages.Add(new AvatarImage {ImageData = bytes,UserId = addUser.Id,User = addUser});
+                    db.AvatarImages.Add(new UserAvatarImage {ImageData = bytes,UserId = addUser.Id,User = addUser});
 
 
                     await db.SaveChangesAsync();

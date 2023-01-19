@@ -8,6 +8,6 @@ namespace UBox.Date.Interface
 {
     public interface IAvatarImage
     {
-        public AvatarImage getAvatarImage(int idUser);
+        public UserAvatarImage getAvatarImage(int idUser);
     }
 }
