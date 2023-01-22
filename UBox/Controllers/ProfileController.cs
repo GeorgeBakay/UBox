@@ -46,6 +46,26 @@ namespace UBox.Controllers
             obj.posts = _post.getPosts(User.Identity.Name);
             return View(obj);
         }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        public IActionResult Profile(int userId)
+        {
+            ProfileModel obj = new ProfileModel();
+            obj.user = _profile.GetProfileById(userId);
+            byte[] image;
+            if (obj.user == null)
+            {
+                image = null;
+            }
+            else
+            {
+                image = _avatar.getAvatarImage(obj.user.Id).ImageData;
+            }
+            string imreBase64Data = Convert.ToBase64String(image);
+            obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
+            obj.posts = _post.getPosts(obj.user.UserName);
+            return View(obj);
+        }
 
 
     }

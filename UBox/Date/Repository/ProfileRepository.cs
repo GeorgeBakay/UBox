@@ -16,10 +16,20 @@ namespace UBox.Date.Repository
         {
             this.appDBContext = _appDBContext;              
         }
+
+        public User GetProfileById(int id)
+        {
+            return appDBContext.Users.FirstOrDefault(u => u.Id == id);
+        }
+
         public User MyProfile(string UserName) {
              return appDBContext.Users.FirstOrDefault(u => u.UserName == UserName);
-        } 
-        
-            
+        }
+
+        public List<User> SearchProfile(string UserName)
+        { 
+            IEnumerable<User> userEnum = appDBContext.Users.Where(u => u.UserName.StartsWith(UserName));
+            return userEnum.ToList();
+        }
     }
 }

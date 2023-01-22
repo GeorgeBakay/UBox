@@ -30,8 +30,6 @@
     transition: color .2s, text-shadow .2s;
 }
 .head_of_profile_nav_bar_content {
-   /* animation-name:show_nav;
-    animation-duration:.3s;*/
     display: none;
     width: 200px;
     background-color: white;
@@ -129,14 +127,12 @@
     margin-top:15px;
     width:320px;
     height:320px;
+    overflow:hidden;
     text-align:center;
 }
 .posts_element_content{
-    margin: 0 auto;
-    margin-top:10px;
-    border-radius:10px;
-    width:300px;
-    height:300px;
+    width:320px;
+    height:320px;
     overflow:hidden;
     display:flex;
     justify-content:center;

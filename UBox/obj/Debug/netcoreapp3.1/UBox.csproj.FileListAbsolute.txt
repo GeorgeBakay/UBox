@@ -225,3 +225,5 @@ C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.
 C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.pdb
 C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.genruntimeconfig.cache
 C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Post\AddPost.cshtml.g.cs
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Search\ProfileSearch.cshtml.g.cs
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Profile.cshtml.g.cs

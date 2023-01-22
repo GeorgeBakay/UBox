@@ -19,6 +19,30 @@ namespace UBox.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("UBox.Date.Models.FollowArray", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FollowerUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FollowingUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FollowerUserId")
+                        .IsUnique();
+
+                    b.HasIndex("FollowingUserId")
+                        .IsUnique();
+
+                    b.ToTable("FollowArrays");
+                });
+
             modelBuilder.Entity("UBox.Date.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -68,21 +92,11 @@ namespace UBox.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserFollowersId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserFollowersId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserFollowersId");
-
-                    b.HasIndex("UserFollowersId1");
 
                     b.ToTable("Users");
                 });
@@ -108,21 +122,17 @@ namespace UBox.Migrations
                     b.ToTable("AvatarImages");
                 });
 
-            modelBuilder.Entity("UBox.Date.Models.UserFollowers", b =>
+            modelBuilder.Entity("UBox.Date.Models.FollowArray", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasOne("UBox.Date.Models.User", "FollowerUser")
+                        .WithOne()
+                        .HasForeignKey("UBox.Date.Models.FollowArray", "FollowerUserId")
+                        .IsRequired();
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserFollowers");
+                    b.HasOne("UBox.Date.Models.User", "FollowingUser")
+                        .WithOne()
+                        .HasForeignKey("UBox.Date.Models.FollowArray", "FollowingUserId")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UBox.Date.Models.Post", b =>
@@ -134,27 +144,7 @@ namespace UBox.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UBox.Date.Models.User", b =>
-                {
-                    b.HasOne("UBox.Date.Models.UserFollowers", null)
-                        .WithMany("Follow")
-                        .HasForeignKey("UserFollowersId");
-
-                    b.HasOne("UBox.Date.Models.UserFollowers", null)
-                        .WithMany("Following")
-                        .HasForeignKey("UserFollowersId1");
-                });
-
             modelBuilder.Entity("UBox.Date.Models.UserAvatarImage", b =>
-                {
-                    b.HasOne("UBox.Date.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("UBox.Date.Models.UserFollowers", b =>
                 {
                     b.HasOne("UBox.Date.Models.User", "User")
                         .WithMany()

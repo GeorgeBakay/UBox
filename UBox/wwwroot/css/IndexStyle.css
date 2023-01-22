@@ -58,6 +58,11 @@
     .user_info{
         margin-right:10px;
         margin-top:0;
+        width:55px;
+    }
+    .user_info_name {
+        display: none;
+        width: 55px;
     }
 
 }

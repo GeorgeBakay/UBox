@@ -1,4 +1,4 @@
-﻿@model UBox.ViewModels.ProfileIconModel
+﻿@model UBox.ViewModels.IndexModel
 @{
     ViewBag.Title = "Головна - Ubox";
 }
@@ -24,6 +24,11 @@
         </a>
     </div>
     <div class="index_body">
+
+        @foreach(var el in Model.ListOfPosts)
+        {
+            <p>@el.Description</p>
+        }
        <p>@Model.user.UserName</p>
         <p>Hello world</p>
     </div>

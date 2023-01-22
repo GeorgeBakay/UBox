@@ -22,20 +22,23 @@ namespace UBox.Date.Repository
             User thisUser = appDBContext.Users.FirstOrDefault(u => u.UserName == userName);
             List<string> tegs = new List<string> { };
             string type = Path.GetExtension(model.PostItem.FileName).ToLower();
-            if (model.Description.Contains('#'))
+            if(model.Description != null)
             {
-                foreach(string teg in model.Description.Split(' '))
+                if (model.Description.Contains('#'))
                 {
-                    if (teg.Contains('#'))
+                    foreach (string teg in model.Description.Split(' '))
                     {
-                        string[] tegMass = teg.Split("#");
-                        foreach(string el in tegMass)
+                        if (teg.Contains('#'))
                         {
-                            tegs.Add(el);
+                            string[] tegMass = teg.Split("#");
+                            foreach (string el in tegMass)
+                            {
+                                tegs.Add(el);
+                            }
                         }
                     }
                 }
-            }
+            } 
             appDBContext.Posts.Add(new Post
             {
                 PostFilePath = filepath,
@@ -54,6 +57,26 @@ namespace UBox.Date.Repository
         {
             IEnumerable<Post> posts = appDBContext.Posts.Where(p => p.User.UserName == userName);
             return posts.ToList();
+        }
+
+        public List<Post> getRecomendetPost(string userName)
+        {
+            User thisUser = appDBContext.Users.FirstOrDefault(u => u.UserName == userName);
+            IEnumerable<FollowArray> FollowArray = appDBContext.FollowArrays.Where(f => f.FollowerUser == thisUser);
+            List<User> FollowingUser = new List<User>();
+            foreach(FollowArray el in FollowArray)
+            {
+                FollowingUser.Add(el.FollowingUser);
+            }
+            List<Post> posts = new List<Post>();
+            foreach(User el in FollowingUser)
+            {
+                IEnumerable<Post> postsEl = appDBContext.Posts.Where(p => p.User == el);
+                posts.AddRange(postsEl.ToList());
+            }
+            IEnumerable<Post> sortedPost = posts.OrderBy(u => u.PublishDate);
+            return sortedPost.ToList();
+
         }
     }
 }
