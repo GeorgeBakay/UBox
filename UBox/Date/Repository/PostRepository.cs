@@ -56,7 +56,7 @@ namespace UBox.Date.Repository
         public List<Post> getPosts(string userName)
         {
             IEnumerable<Post> posts = appDBContext.Posts.Where(p => p.User.UserName == userName);
-            return posts.ToList();
+            return posts.OrderByDescending(u => u.PublishDate).ToList();
         }
 
         public List<Post> getRecomendetPost(string userName)

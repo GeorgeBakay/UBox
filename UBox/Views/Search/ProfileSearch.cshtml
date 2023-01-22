@@ -17,9 +17,10 @@
     {
         foreach (var el in Model.ListOfUser)
         {
-            <a asp-action="Profile" asp-controller="Profile" asp-route-userId="@el.Id">
-                <p>@el.UserName</p>
-                <p>@el.Email</p>
+            <a asp-action="Profile" asp-controller="Profile" asp-route-userId="@el.Key.Id">
+                <img  src="@el.Value"/>
+                <p>@el.Key.UserName</p>
+                <p>@el.Key.Email</p>
             </a>
             
         }

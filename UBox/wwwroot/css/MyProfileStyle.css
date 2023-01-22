@@ -148,7 +148,7 @@
     text-overflow: ellipsis;
 }
 .posts_element_content *{
-    max-height:300px;
+    max-height:320px;
 }
 @keyframes show_nav {
     0%{

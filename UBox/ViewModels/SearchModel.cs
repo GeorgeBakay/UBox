@@ -11,6 +11,6 @@ namespace UBox.ViewModels
     {
         [Required]
         public string Name { get; set; }
-        public List<User> ListOfUser { get; set; }
+        public Dictionary<User,string> ListOfUser { get; set; }
     }
 }
