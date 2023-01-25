@@ -23,6 +23,7 @@ namespace UBox.Date.Models
         public int UserId { get; set; }
         [Required]
         public UserDetailInfo User { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
         
     }
 }

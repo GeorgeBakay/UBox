@@ -41,6 +41,28 @@ namespace UBox.Migrations
                     b.ToTable("FollowArrays");
                 });
 
+            modelBuilder.Entity("UBox.Date.Models.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("UBox.Date.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -149,6 +171,19 @@ namespace UBox.Migrations
                     b.HasOne("UBox.Date.Models.UserDetailInfo", "FollowingUser")
                         .WithMany("following")
                         .HasForeignKey("FollowingUserId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UBox.Date.Models.Like", b =>
+                {
+                    b.HasOne("UBox.Date.Models.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .IsRequired();
+
+                    b.HasOne("UBox.Date.Models.UserDetailInfo", "User")
+                        .WithMany("likes")
+                        .HasForeignKey("UserId")
                         .IsRequired();
                 });
 

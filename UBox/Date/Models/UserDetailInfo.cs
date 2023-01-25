@@ -19,6 +19,8 @@ namespace UBox.Date.Models
         public virtual ICollection<FollowArray> follower { get; set; } = new List<FollowArray>();
         //список користувачів які підписалися на вас
         public virtual ICollection<FollowArray> following { get; set; } = new List<FollowArray>();
+        //список вподобань користувача
+        public virtual ICollection<Like> likes { get; set; } = new List<Like>();
 
     }
 }
