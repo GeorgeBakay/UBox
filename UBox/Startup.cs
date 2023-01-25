@@ -55,6 +55,7 @@ namespace UBox
             services.AddScoped<IProfile,ProfileRepository>();
             services.AddScoped<IAvatarImage, AvatarImageRepository>();
             services.AddTransient<IPost, PostRepository>();
+            services.AddTransient<IFollowArray, FollowArrayRepository>();
             services.AddControllersWithViews();
         }
 

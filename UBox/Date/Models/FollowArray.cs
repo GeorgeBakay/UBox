@@ -12,15 +12,14 @@ namespace UBox.Date.Models
         [Key]
         public int Id { get; set; }
         //який користувач підписаний
-        
-        public User FollowerUser { get; set; }
-
         public int FollowerUserId { get; set; }
-        //На кого користувач підписаний
-        
-        public User FollowingUser { get; set; }
-       
-        public int FollowingUserId { get; set; }
+        public UserDetailInfo FollowerUser { get; set; }
 
+
+        //На кого користувач підписаний
+        public int FollowingUserId { get; set; }
+        public UserDetailInfo FollowingUser { get; set; }
+       
+        
     }
 }

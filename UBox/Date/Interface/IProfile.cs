@@ -12,6 +12,7 @@ namespace UBox.Date.Interface
         public User MyProfile(string UserName);
         public List<User> SearchProfile(string UserName);
         public User GetProfileById(int id);
+        public int GetIdByName(string userName);
       
     }
 }

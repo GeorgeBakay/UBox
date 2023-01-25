@@ -38,7 +38,7 @@ namespace UBox.Controllers
             {
                 byte[] image = _avatarImage.getAvatarImage(el.Id).ImageData;
                 string imreBase64Data = Convert.ToBase64String(image);
-                obj.ListOfUser.Add(el, string.Format("data:image/png;base64,{0}", imreBase64Data));
+                obj.ListOfUser.Add(el,  string.Format("data:image/png;base64,{0}", imreBase64Data));
             }
             
             return View(obj);

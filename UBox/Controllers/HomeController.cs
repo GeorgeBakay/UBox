@@ -9,6 +9,7 @@ using UBox.Date.Interface;
 using UBox.ViewModels;
 using System.IO;
 using System.Drawing;
+using Microsoft.AspNetCore.Authentication;
 
 namespace UBox.Controllers
 {
@@ -29,10 +30,15 @@ namespace UBox.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             IndexModel obj = new IndexModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
+            if(obj.user == null)
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Login", "User");
+            }
             string imreBase64Data = Convert.ToBase64String(_avatar.getAvatarImage(obj.user.Id).ImageData);
             obj.imageDataUrl = string.Format("data:image/png;base64,{0}", imreBase64Data);
             obj.ListOfPosts = _post.getRecomendetPost(User.Identity.Name);

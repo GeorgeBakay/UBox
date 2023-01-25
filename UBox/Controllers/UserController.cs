@@ -67,11 +67,9 @@ namespace UBox.Controllers
         {
             if (ModelState.IsValid)
             {
-               
-               
                 User user = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName || u.Email == model.Email);
 
-                if(model.Password.Length < 8)
+                if (model.Password.Length < 8)
                 {
                     ModelState.AddModelError("", "Пароль повинен містити мінімум 8 символів");
                 }
@@ -83,7 +81,7 @@ namespace UBox.Controllers
                 {
                     string hash = getHashCode(model.Password);
                     byte[] bytes;
-                    if(model.Image != null)
+                    if (model.Image != null)
                     {
                         var file = model.Image;
                         var imageFileStream = file.OpenReadStream();
@@ -102,12 +100,26 @@ namespace UBox.Controllers
                         imageFileStream.Read(bytes, 0, (int)imageFileStream.Length);
 
                     }
-                    db.Users.Add(new User { UserName = model.UserName, Email = model.Email, Password = hash, DateCreate = DateTime.Now });
-                    
+                    User userAdder = new User { UserName = model.UserName,
+                        Email = model.Email,
+                        Password = hash,
+                        DateCreate = DateTime.Now 
+                    };
+                    UserDetailInfo userDetailInfoAdder = new UserDetailInfo
+                    {
+                        user = userAdder,
+                        posts = new List<Post>(),
+                        follower = new List<FollowArray>(),
+                        following = new List<FollowArray>()
+                    };
+                    userAdder.userDetailInfo = userDetailInfoAdder;
+                    db.Users.Add(userAdder);
+                    db.UserDetailInfos.Add(userDetailInfoAdder);
+
                     await db.SaveChangesAsync();
 
 
-                    User addUser = await db.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName);
+                    UserDetailInfo addUser = await db.UserDetailInfos.FirstOrDefaultAsync(u => u.user.UserName == model.UserName);
                     db.AvatarImages.Add(new UserAvatarImage {ImageData = bytes,UserId = addUser.Id,User = addUser});
 
 

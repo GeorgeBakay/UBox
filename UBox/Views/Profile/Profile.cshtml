@@ -25,6 +25,18 @@
             </div>
             <div class="my_profile_content_info_myIcon_name_buttom">
                 <a><div></div></a>
+                @using (Html.BeginForm("Follow", "Profile", new { userName = Model.user.UserName }, FormMethod.Post))
+                {
+                        if (Model.isFollow == true)
+                        {
+                            <input type="submit" value="Відписатися" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Підписатися" />
+                        }
+                }
+
             </div>
         </div>
         <div class="my_profile_content_info_myStats">

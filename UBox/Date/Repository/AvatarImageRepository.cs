@@ -16,7 +16,7 @@ namespace UBox.Date.Repository
         }
         public UserAvatarImage getAvatarImage(int idUser)
         {
-            return appDBContext.AvatarImages.FirstOrDefault(u => u.UserId == idUser);
+            return appDBContext.AvatarImages.FirstOrDefault(u => u.User.user.Id == idUser);
         }
     }
 }

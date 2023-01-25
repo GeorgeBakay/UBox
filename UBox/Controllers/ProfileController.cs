@@ -16,13 +16,15 @@ namespace UBox.Controllers
         private readonly IProfile _profile;
         private readonly IAvatarImage _avatar;
         private readonly IPost _post;
+        private readonly IFollowArray _followArray;
 
 
-        public ProfileController(IProfile profile, IAvatarImage avatar, IPost post)
+        public ProfileController(IProfile profile, IAvatarImage avatar, IPost post , IFollowArray followArray)
         {
             _profile = profile;
             _avatar = avatar;
             _post = post;
+            _followArray = followArray;
         }
 
         
@@ -30,7 +32,7 @@ namespace UBox.Controllers
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public async Task<IActionResult> MyProfile()
         {
-            ProfileModel obj = new ProfileModel();
+            MyProfileModel obj = new MyProfileModel();
             obj.user = _profile.MyProfile(User.Identity.Name);
             
             if (obj.user == null)
@@ -64,9 +66,17 @@ namespace UBox.Controllers
             string imreBase64Data = Convert.ToBase64String(image);
             obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
             obj.posts = _post.getPosts(obj.user.UserName);
+            obj.isFollow = _followArray.checkOnFollow(User.Identity.Name, obj.user.UserName);
             return View(obj);
         }
 
-
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Follow(string userName)
+        {
+            int id = _profile.GetIdByName(userName);
+            await _followArray.FollowUnFollow(User.Identity.Name, userName);
+            return RedirectToAction("Profile",new {userId = id});
+        }
     }
 }

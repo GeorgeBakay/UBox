@@ -11,6 +11,6 @@ namespace UBox.Date.Interface
     {
         public List<Post> getRecomendetPost(string userName);
         public List<Post> getPosts(string userName);
-        public void addPost(string userName,AddPostModel model,string filePath);
+        public Task addPost(string userName,AddPostModel model,string filePath);
     }
 }

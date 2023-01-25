@@ -19,5 +19,6 @@ namespace UBox.Date.Models
         [MinLength(8)]
         public string Password { get; set; }  
         public DateTime DateCreate { get; set; }
+        public UserDetailInfo userDetailInfo { get; set; }
     }
 }

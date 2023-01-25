@@ -34,11 +34,9 @@ namespace UBox.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FollowerUserId")
-                        .IsUnique();
+                    b.HasIndex("FollowerUserId");
 
-                    b.HasIndex("FollowingUserId")
-                        .IsUnique();
+                    b.HasIndex("FollowingUserId");
 
                     b.ToTable("FollowArrays");
                 });
@@ -122,23 +120,42 @@ namespace UBox.Migrations
                     b.ToTable("AvatarImages");
                 });
 
+            modelBuilder.Entity("UBox.Date.Models.UserDetailInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId")
+                        .IsUnique()
+                        .HasFilter("[userId] IS NOT NULL");
+
+                    b.ToTable("UserDetailInfos");
+                });
+
             modelBuilder.Entity("UBox.Date.Models.FollowArray", b =>
                 {
-                    b.HasOne("UBox.Date.Models.User", "FollowerUser")
-                        .WithOne()
-                        .HasForeignKey("UBox.Date.Models.FollowArray", "FollowerUserId")
+                    b.HasOne("UBox.Date.Models.UserDetailInfo", "FollowerUser")
+                        .WithMany("follower")
+                        .HasForeignKey("FollowerUserId")
                         .IsRequired();
 
-                    b.HasOne("UBox.Date.Models.User", "FollowingUser")
-                        .WithOne()
-                        .HasForeignKey("UBox.Date.Models.FollowArray", "FollowingUserId")
+                    b.HasOne("UBox.Date.Models.UserDetailInfo", "FollowingUser")
+                        .WithMany("following")
+                        .HasForeignKey("FollowingUserId")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("UBox.Date.Models.Post", b =>
                 {
-                    b.HasOne("UBox.Date.Models.User", "User")
-                        .WithMany()
+                    b.HasOne("UBox.Date.Models.UserDetailInfo", "User")
+                        .WithMany("posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -146,11 +163,18 @@ namespace UBox.Migrations
 
             modelBuilder.Entity("UBox.Date.Models.UserAvatarImage", b =>
                 {
-                    b.HasOne("UBox.Date.Models.User", "User")
+                    b.HasOne("UBox.Date.Models.UserDetailInfo", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UBox.Date.Models.UserDetailInfo", b =>
+                {
+                    b.HasOne("UBox.Date.Models.User", "user")
+                        .WithOne("userDetailInfo")
+                        .HasForeignKey("UBox.Date.Models.UserDetailInfo", "userId");
                 });
 #pragma warning restore 612, 618
         }

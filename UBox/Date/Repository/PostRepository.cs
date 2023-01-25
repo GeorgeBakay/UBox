@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace UBox.Date.Repository
             this.appDBContext = appDBContext;
         }
 
-        public void addPost( string userName, AddPostModel model,string filepath)
+        public async Task addPost( string userName, AddPostModel model,string filepath)
         {
-            User thisUser = appDBContext.Users.FirstOrDefault(u => u.UserName == userName);
+            UserDetailInfo thisUser = appDBContext.UserDetailInfos.FirstOrDefault(u => u.user.UserName == userName);
             List<string> tegs = new List<string> { };
             string type = Path.GetExtension(model.PostItem.FileName).ToLower();
             if(model.Description != null)
@@ -38,45 +39,51 @@ namespace UBox.Date.Repository
                         }
                     }
                 }
-            } 
-            appDBContext.Posts.Add(new Post
-            {
+            }
+            Post thisPost = new Post {
                 PostFilePath = filepath,
                 FileType = type,
                 Description = model.Description,
-     
                 PublishDate = DateTime.Now,
-                UserId = thisUser.Id,
                 User = thisUser,
-               
-            }) ;
-            appDBContext.SaveChanges();
+            };
+            appDBContext.Posts.Add(thisPost);
+            //thisUser.posts.Add(thisPost);
+            await appDBContext.SaveChangesAsync();
+            
+           
         }
 
         public List<Post> getPosts(string userName)
         {
-            IEnumerable<Post> posts = appDBContext.Posts.Where(p => p.User.UserName == userName);
-            return posts.OrderByDescending(u => u.PublishDate).ToList();
+
+            var user = appDBContext.UserDetailInfos.Include(p => p.posts).FirstOrDefault(u => u.user.UserName == userName);
+
+            List <Post> posts = user.posts.ToList();
+            if(posts != null)
+            {
+                return posts.OrderByDescending(u => u.PublishDate).ToList();
+            }
+            return new List<Post>();
+            
         }
 
         public List<Post> getRecomendetPost(string userName)
         {
-            User thisUser = appDBContext.Users.FirstOrDefault(u => u.UserName == userName);
-            IEnumerable<FollowArray> FollowArray = appDBContext.FollowArrays.Where(f => f.FollowerUser == thisUser);
-            List<User> FollowingUser = new List<User>();
-            foreach(FollowArray el in FollowArray)
+            var user = appDBContext.UserDetailInfos.Include(p => p.follower).ThenInclude(i => i.FollowingUser).ThenInclude(o => o.posts).FirstOrDefault(u => u.user.UserName == userName);
+            List<FollowArray> usersFollowingArray = user.follower.ToList();
+            List<Post> recomendetPost = new List<Post>();
+            if(usersFollowingArray != null)
             {
-                FollowingUser.Add(el.FollowingUser);
+                foreach (FollowArray el in usersFollowingArray)
+                {
+                    recomendetPost.AddRange(el.FollowingUser.posts.ToList());
+                }
             }
-            List<Post> posts = new List<Post>();
-            foreach(User el in FollowingUser)
-            {
-                IEnumerable<Post> postsEl = appDBContext.Posts.Where(p => p.User == el);
-                posts.AddRange(postsEl.ToList());
-            }
-            IEnumerable<Post> sortedPost = posts.OrderBy(u => u.PublishDate);
-            return sortedPost.ToList();
-
+            recomendetPost.Sort(delegate(Post x,Post y) {
+                return y.PublishDate.CompareTo(x.PublishDate);
+            });
+            return recomendetPost;
         }
     }
 }

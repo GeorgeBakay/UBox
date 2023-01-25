@@ -24,12 +24,32 @@
         </a>
     </div>
     <div class="index_body">
+        @{
+            foreach (var el in Model.ListOfPosts)
+            {
+                <div class="posts_element">
+                    <div class="posts_element_content">
+                        @{
+                            if (el.FileType == ".mp4")
+                            {
+                                <video autoplay loop>
+                                    <source src="@el.PostFilePath" type="video/mp4" />
+                                    Ваш браузер не підтримує цей відео тег
+                                </video>
+                            }
+                            else if (el.FileType == ".jpg" || el.FileType == ".png")
+                            {
+                                <img src="@el.PostFilePath" />
+                            }
+                        }
+                    </div>
 
-        @foreach(var el in Model.ListOfPosts)
-        {
-            <p>@el.Description</p>
+
+                    <p>@el.Description</p>
+                </div>
+            }
         }
-       <p>@Model.user.UserName</p>
+        <p>@Model.user.UserName</p>
         <p>Hello world</p>
     </div>
 

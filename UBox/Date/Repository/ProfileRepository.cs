@@ -17,6 +17,11 @@ namespace UBox.Date.Repository
             this.appDBContext = _appDBContext;              
         }
 
+        public int GetIdByName(string userName)
+        {
+            return appDBContext.Users.FirstOrDefault(u => u.UserName == userName).Id;
+        }
+
         public User GetProfileById(int id)
         {
             return appDBContext.Users.FirstOrDefault(u => u.Id == id);

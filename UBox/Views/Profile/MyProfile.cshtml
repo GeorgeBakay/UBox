@@ -1,4 +1,4 @@
-﻿@model UBox.ViewModels.ProfileModel
+﻿@model UBox.ViewModels.MyProfileModel
 @{ 
     ViewBag.Title = "Мій профіль";
 }
@@ -66,13 +66,8 @@
                 <p>Дописи</p>
                 <span>@Model.posts.Count</span>
             </div>
-
-
         </div>
-
     </div>
-
-
     <div class="my_profile_content_posts">
         @{ 
             foreach(var el in Model.posts)

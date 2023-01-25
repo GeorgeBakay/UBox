@@ -13,7 +13,7 @@ namespace UBox.Date.Models
         [Required]
         public byte[] ImageData { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
+        public UserDetailInfo User { get; set; }
 
     }
 }

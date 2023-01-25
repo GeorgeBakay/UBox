@@ -1,5 +1,5 @@
 ﻿@model UBox.ViewModels.SearchModel
-
+    <link href="~/css/ProfileSearchStyle.css" rel="stylesheet" type="text/css" />
 <form asp-action="ProfileSearch" asp-controller="Search" asp-anti-forgery="true">
     <input asp-for="Name" type="text" />
     <input type="submit" value="Пошук" />
@@ -18,9 +18,13 @@
         foreach (var el in Model.ListOfUser)
         {
             <a asp-action="Profile" asp-controller="Profile" asp-route-userId="@el.Key.Id">
-                <img  src="@el.Value"/>
-                <p>@el.Key.UserName</p>
-                <p>@el.Key.Email</p>
+                <div class="user_element_icon">
+                    <div class="user_element_icon_img">
+                        <img src="@el.Value" />
+                    </div>
+                    
+                    <p>@el.Key.UserName</p>
+                </div>
             </a>
             
         }

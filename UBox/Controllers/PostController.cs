@@ -39,7 +39,7 @@ namespace UBox.Controllers
                 {
                     await model.PostItem.CopyToAsync(fileStream);
                 }
-                _post.addPost(User.Identity.Name, model, path);
+                await _post.addPost(User.Identity.Name, model, path);
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("", "Виберіть фото");
