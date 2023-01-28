@@ -53,7 +53,7 @@ namespace UBox.Date.Repository
                 {
                     appDBContext.FollowArrays.Remove(array);
                     await appDBContext.SaveChangesAsync();
-                    return false;
+                    return true;
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace UBox.Date.Repository
                         FollowingUserId = FollowingUser.Id
                     });
                     await appDBContext.SaveChangesAsync();
-                    return true;
+                    return false;
                 } 
             }
         }

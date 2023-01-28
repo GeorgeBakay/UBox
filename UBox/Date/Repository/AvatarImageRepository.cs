@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,11 @@ namespace UBox.Date.Repository
         {
             this.appDBContext = appDBContext;
         }
-        public UserAvatarImage getAvatarImage(int idUser)
+        public UserAvatarImage getAvatarImage(User User)
         {
-            return appDBContext.AvatarImages.FirstOrDefault(u => u.User.user.Id == idUser);
+
+            UserDetailInfo result = appDBContext.UserDetailInfos.Include(o => o.avatar).FirstOrDefault(u => u.user == User);
+            return result.avatar;
         }
     }
 }

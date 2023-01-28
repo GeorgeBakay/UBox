@@ -49,30 +49,31 @@
  
 }
 .posts_element {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFDFD;
     border-radius: 20px;
     margin: 0 auto;
     margin-top: 15px;
     width: 90%;
-    height: 340px;
+    height: 360px;
     overflow: hidden;
     text-align: center;
 }
 
 .posts_element_content {
     min-width: 320px;
-    width:320px;
+    width: 320px;
     height: 320px;
-    margin-left: 10px;
-    border-radius:10px;
+    margin-left: 20px;
+    border-radius: 10px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    background-color: #E3E3E3;
 }
 
 .posts_element p {
@@ -105,5 +106,9 @@
         display: none;
         width: 55px;
     }
+    .posts_element{
+        flex-direction:column;
+    }
+    
 
 }

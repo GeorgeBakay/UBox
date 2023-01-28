@@ -7,12 +7,12 @@ a{
     color:black
 }
 body {
-    height:100vh;
-    width:100%;
+    height: 100vh;
+    width: 100vw;
     font-family: 'Roboto Slab', serif;
     display: flex;
-    flex-direction:row-reverse;
-    justify-content:space-between;
+    
+    flex-direction: row;
 }
 svg{
     display:inline;
@@ -20,7 +20,7 @@ svg{
 .logo_mobile{
     display:none;
 }
-footer{
+header{
     animation-name:footer_show;
     animation-duration:.3s;
     display:flex;
@@ -29,12 +29,15 @@ footer{
     align-items:center;
     min-width:250px;
     background-color:white;
+    box-shadow: 2px 0 10px 2px lightgray;
+    
+    z-index:1;
 }
 
 .logo_desktop{
     margin-top:25px;
 }
-footer ul {
+header ul {
     margin-top: 45px;
 }
 .item{
@@ -46,10 +49,10 @@ footer ul {
     font-weight:bold;
     transition:color .2s;
 }
-    .item:hover {
-        color: #FA6D6D;
-        fill: #FA6D6D;
-    }
+.item:hover {
+    color: #FA6D6D;
+    fill: #FA6D6D;
+}
 .icon{
     width:40px;
     height:35px;
@@ -63,13 +66,13 @@ footer ul {
     margin-left:20px;
 }
 header {
-    margin: 0 25px;
+   
 }
-.content{
-    background-color:lightgray;
-    width:100%;
-    height:100%;
-    overflow-y:scroll;
+.content {
+    background-color: #F6F6F6;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
 }
 @keyframes footer_show{
     0%{
@@ -81,14 +84,7 @@ header {
 }
 @media(max-width: 450px){
     body {
-        flex-direction: column;
-    }
-    header{    
-        margin: 0;
-        width:100%;
-        height:50px;
-        display:flex;
-        justify-content:space-between;
+        flex-direction: column-reverse;
         align-items:center;
     }
     .left_items{
@@ -125,12 +121,12 @@ header {
     .user_info{
         margin-right:10px;
     }
-    footer {
+    header {
         background-color:white;
         width:100%;
         height: 50px;
     }
-    footer ul{
+    header ul{
         width:90%;
         margin-top:0;
         height:100%;

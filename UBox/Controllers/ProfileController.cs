@@ -40,17 +40,18 @@ namespace UBox.Controllers
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToAction("Login", "User");
             }
-            byte[] image = _avatar.getAvatarImage(obj.user.Id).ImageData;
+            byte[] image = _avatar.getAvatarImage(obj.user).ImageData;
             string imreBase64Data = Convert.ToBase64String(image);
             obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
-
+            obj.followers = await _profile.GetfollowerBy(obj.user);
+            obj.following = await _profile.GetfollowingBy(obj.user);
 
             obj.posts = _post.getPosts(User.Identity.Name);
             return View(obj);
         }
         [HttpGet]
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        public IActionResult Profile(int userId)
+        public async Task<IActionResult> Profile(int userId)
         {
             ProfileModel obj = new ProfileModel();
             obj.user = _profile.GetProfileById(userId);
@@ -61,22 +62,24 @@ namespace UBox.Controllers
             }
             else
             {
-                image = _avatar.getAvatarImage(obj.user.Id).ImageData;
+                image = _avatar.getAvatarImage(obj.user).ImageData;
             }
             string imreBase64Data = Convert.ToBase64String(image);
             obj.imageAvatar = string.Format("data:image/png;base64,{0}", imreBase64Data);
             obj.posts = _post.getPosts(obj.user.UserName);
             obj.isFollow = _followArray.checkOnFollow(User.Identity.Name, obj.user.UserName);
+            obj.following = await _profile.GetfollowingBy(obj.user);
+            obj.followers = await _profile.GetfollowerBy(obj.user);
             return View(obj);
         }
 
-        [HttpPost]
+ 
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> Follow(string userName)
+        public async Task<bool> Follow(string userName)
         {
             int id = _profile.GetIdByName(userName);
-            await _followArray.FollowUnFollow(User.Identity.Name, userName);
-            return RedirectToAction("Profile",new {userId = id});
+            bool result = await _followArray.FollowUnFollow(User.Identity.Name, userName);
+            return result/*RedirectToAction("Profile",new {userId = id})*/;
         }
     }
 }

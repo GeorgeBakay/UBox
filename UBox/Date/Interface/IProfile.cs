@@ -13,6 +13,10 @@ namespace UBox.Date.Interface
         public List<User> SearchProfile(string UserName);
         public User GetProfileById(int id);
         public int GetIdByName(string userName);
-      
+        public Task<List<User>> GetfollowerBy(User user);
+        public Task<List<User>> GetfollowingBy(User user);
+
+
+
     }
 }

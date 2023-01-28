@@ -18,11 +18,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.1.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Scripts\" />
     <Folder Include="wwwroot\DataOfClients\Posts\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>
