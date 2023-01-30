@@ -51,6 +51,7 @@ input {
     height: 40px;
     border-radius: 10px;
     background-color: #FA6D6D;
+    line-height:40px;
 }
 .link{
     color: black;

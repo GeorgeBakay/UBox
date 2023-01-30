@@ -77,7 +77,6 @@ namespace UBox.Controllers
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public async Task<bool> Follow(string userName)
         {
-            int id = _profile.GetIdByName(userName);
             bool result = await _followArray.FollowUnFollow(User.Identity.Name, userName);
             return result/*RedirectToAction("Profile",new {userId = id})*/;
         }

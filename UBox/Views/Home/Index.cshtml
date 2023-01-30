@@ -17,36 +17,17 @@
 
         <a asp-action="MyProfile" asp-controller="Profile">
             <div class="user_info">
-                <div class="user_info_img"><img src="@Model.imageDataUrl"/></div>
+                <div class="user_info_img"><img src="@Model.imageDataUrl" /></div>
                 <div class="user_info_name">@User.Identity.Name</div>
-                
+
             </div>
         </a>
     </div>
-    <div class="index_body">
+    <div id="posts" class="index_body">
         @{
             foreach (var el in Model.ListOfPosts)
             {
-                <div class="posts_element">
-                    <div class="posts_element_content">
-                        @{
-                            if (el.FileType == ".mp4")
-                            {
-                                <video autoplay loop>
-                                    <source src="@el.PostFilePath" type="video/mp4" />
-                                    Ваш браузер не підтримує цей відео тег
-                                </video>
-                            }
-                            else if (el.FileType == ".jpg" || el.FileType == ".png")
-                            {
-                                <img src="@el.PostFilePath" />
-                            }
-                        }
-                    </div>
-
-
-                    <p>@el.Description</p>
-                </div>
+                <partial name="_PostPartial" model="new PostPartialView() {post = el.Key , avatar = el.Value }"/>
             }
         }
         <p>@Model.user.UserName</p>
@@ -54,3 +35,37 @@
     </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    function print() {
+        console.log(this.id);
+        $.ajax({
+             type: "POST",
+            url: "@Url.Action("Like")",
+            data: { postIdStr: this.id },
+            dataType: "text",
+            success: function (response) {
+                if (response == "false") {
+                    console.log("disslike");
+                    
+                }
+                else if (response == "true") {
+                    console.log("like");
+                }
+                console.log(response);
+            },
+            error: function (req, status, error) {
+                console.log(req);
+                console.log(status);
+                console.log(error);
+            },
+
+        });
+    }
+    let element = document.getElementsByClassName("likeButton");
+    console.log(element.length);
+    for (i = 0; i < element.length; i++) {
+        element[i].addEventListener("click", print, false);
+    }
+    
+</script>

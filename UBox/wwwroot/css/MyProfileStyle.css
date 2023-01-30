@@ -5,8 +5,8 @@
 .line{
     width:90%;
     margin:0 auto;
-    background-color:gray;
-    height:1px;
+    background-color:red;
+    height:2px;
 }
 .head_of_profile_nav_bar {
     position:relative;
@@ -85,7 +85,7 @@
     animation-duration: .5s;
     width: 250px;
     height: 250px;
-    border-radius: 50%;
+    border-radius: 20px;
     overflow: hidden;
     text-align: center;
     line-height: 250px;
@@ -100,13 +100,17 @@
     font-size:30px;
     font-weight:bold;
 }
+.info_element{
+    font-size:20px;
+    font-weight:bold;
+}
 .follow_action {
-    width:150px;
-    margin-top:5px;
+    width: 150px;
+    margin-top: 5px;
     text-align: center;
     padding: 7px 20px;
-    transition: padding .3s , opacity .3s,width .3s;
-    background-color:#1E1E1E;
+    transition: padding .3s, opacity .3s,width .3s;
+    background-color: #1E1E1E;
     color: white;
     border-radius: 10px;
 }

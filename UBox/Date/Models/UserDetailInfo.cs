@@ -15,7 +15,7 @@ namespace UBox.Date.Models
         public int? userId { get; set; }
         public int avatarId { get; set; }
         public UserAvatarImage avatar { get; set; } = null;
-        //Спосок постів користувача
+        //Список постів користувача
         public virtual ICollection<Post> posts { get; set; } = new List<Post>();
         //Список користувачів на яких підписано
         public virtual ICollection<FollowArray> follower { get; set; } = new List<FollowArray>();

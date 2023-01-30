@@ -90,7 +90,7 @@
                             }
                         </div>
 
-
+                        
                         <p>@el.Description</p>
                     </div>
                 }
@@ -116,17 +116,12 @@
             dataType: "text",
             success: function (response) {
                 if (response == "false") {
-                    
                     followAction.innerHTML = "Відстежується";
                     followAction.style.background = '#1E1E1E';
-
-                 
                 }
                 else {
-                    
                     followAction.innerHTML = "Підписатися";
                     followAction.style.backgroundColor = '#FA6D6D';
-
                 }
                 console.log(response);
             },
