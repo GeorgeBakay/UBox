@@ -48,6 +48,9 @@ namespace UBox.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("DataOfLike")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
@@ -137,7 +140,8 @@ namespace UBox.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("AvatarImages");
                 });
@@ -148,6 +152,9 @@ namespace UBox.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("avatarId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("userId")
                         .HasColumnType("int");
@@ -199,9 +206,8 @@ namespace UBox.Migrations
             modelBuilder.Entity("UBox.Date.Models.UserAvatarImage", b =>
                 {
                     b.HasOne("UBox.Date.Models.UserDetailInfo", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("avatar")
+                        .HasForeignKey("UBox.Date.Models.UserAvatarImage", "UserId")
                         .IsRequired();
                 });
 

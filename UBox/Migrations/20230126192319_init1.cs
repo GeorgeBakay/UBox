@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UBox.Migrations
@@ -7,6 +7,20 @@ namespace UBox.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AvatarImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageData = table.Column<byte[]>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvatarImages", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -29,37 +43,24 @@ namespace UBox.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userId = table.Column<int>(nullable: true)
+                    userId = table.Column<int>(nullable: true),
+                    avatarId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserDetailInfos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserDetailInfos_AvatarImages_avatarId",
+                        column: x => x.avatarId,
+                        principalTable: "AvatarImages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserDetailInfos_Users_userId",
                         column: x => x.userId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AvatarImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageData = table.Column<byte[]>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AvatarImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AvatarImages_UserDetailInfos_UserId",
-                        column: x => x.UserId,
-                        principalTable: "UserDetailInfos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,6 +118,7 @@ namespace UBox.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DataOfLike = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     PostId = table.Column<int>(nullable: false)
                 },
@@ -136,11 +138,6 @@ namespace UBox.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AvatarImages_UserId",
-                table: "AvatarImages",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FollowArrays_FollowerUserId",
@@ -168,6 +165,12 @@ namespace UBox.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserDetailInfos_avatarId",
+                table: "UserDetailInfos",
+                column: "avatarId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserDetailInfos_userId",
                 table: "UserDetailInfos",
                 column: "userId",
@@ -177,9 +180,6 @@ namespace UBox.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AvatarImages");
-
             migrationBuilder.DropTable(
                 name: "FollowArrays");
 
@@ -191,6 +191,9 @@ namespace UBox.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserDetailInfos");
+
+            migrationBuilder.DropTable(
+                name: "AvatarImages");
 
             migrationBuilder.DropTable(
                 name: "Users");

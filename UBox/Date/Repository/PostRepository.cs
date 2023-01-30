@@ -68,21 +68,28 @@ namespace UBox.Date.Repository
             
         }
 
-        public List<Post> getRecomendetPost(string userName)
+        public Dictionary<Post,string> getRecomendetPost(string userName)
         {
-            var user = appDBContext.UserDetailInfos.Include(p => p.follower).ThenInclude(i => i.FollowingUser).ThenInclude(o => o.posts).FirstOrDefault(u => u.user.UserName == userName);
+            var user = appDBContext.UserDetailInfos
+                .Include(p => p.follower).ThenInclude(i => i.FollowingUser).ThenInclude(o => o.posts)
+                .Include(p => p.follower).ThenInclude(i => i.FollowingUser).ThenInclude(o => o.avatar)
+                .Include(p => p.follower).ThenInclude(i => i.FollowingUser).ThenInclude(o => o.user)
+                .FirstOrDefault(u => u.user.UserName == userName);
             List<FollowArray> usersFollowingArray = user.follower.ToList();
-            List<Post> recomendetPost = new List<Post>();
+            Dictionary<Post, string> recomendetPost = new Dictionary<Post, string>();
             if(usersFollowingArray != null)
             {
                 foreach (FollowArray el in usersFollowingArray)
                 {
-                    recomendetPost.AddRange(el.FollowingUser.posts.ToList());
+                    List<Post> posts = el.FollowingUser.posts.ToList();
+                    foreach(Post elpost in posts)
+                    {
+                        recomendetPost.Add(elpost, string.Format("data:image/png;base64,{0}", Convert.ToBase64String(el.FollowingUser.avatar.ImageData)));
+                    }
+                    
                 }
             }
-            recomendetPost.Sort(delegate(Post x,Post y) {
-                return y.PublishDate.CompareTo(x.PublishDate);
-            });
+            recomendetPost = recomendetPost.OrderByDescending(u => u.Key.PublishDate).ToDictionary(u =>u.Key,u => u.Value);
             return recomendetPost;
         }
     }

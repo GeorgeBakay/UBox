@@ -5,8 +5,8 @@
 .line{
     width:90%;
     margin:0 auto;
-    background-color:gray;
-    height:1px;
+    background-color:red;
+    height:2px;
 }
 .head_of_profile_nav_bar {
     position:relative;
@@ -74,6 +74,7 @@
 .my_profile_content_info_myIcon {
     display:flex;
     flex-direction:column;
+    align-items:center;
     width: min-content;
     position: relative;
     top: -125px;
@@ -84,7 +85,7 @@
     animation-duration: .5s;
     width: 250px;
     height: 250px;
-    border-radius: 50%;
+    border-radius: 20px;
     overflow: hidden;
     text-align: center;
     line-height: 250px;
@@ -99,12 +100,37 @@
     font-size:30px;
     font-weight:bold;
 }
-.my_profile_content_info_myStats{
-    margin-top:10px;
-    width:300px;
-    display:flex;
-    justify-content:space-between;
-    align-items:start;
+.info_element{
+    font-size:20px;
+    font-weight:bold;
+}
+.follow_action {
+    width: 150px;
+    margin-top: 5px;
+    text-align: center;
+    padding: 7px 20px;
+    transition: padding .3s, opacity .3s,width .3s;
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 10px;
+}
+.follow {
+    background-color: #FA6D6D;
+}
+.follow_action:hover {
+    cursor: pointer;
+    padding: 7px 30px;
+}
+.follow_action:active{
+    width: 0px;
+    opacity:0;
+}
+.my_profile_content_info_myStats {
+    margin-top: 10px;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
 }
 .my_profile_content_info_myStats div{
     display:block;
@@ -114,30 +140,34 @@
     font-weight:bold;
 }
 .my_profile_content_posts {
-    width: 90%;
+    width: min-content;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
     grid-auto-rows: 350px;
 }
 .posts_element{
     background-color:white;
     border-radius:20px;
-    margin:0 auto;
-    margin-top:15px;
+   /* margin:0 auto;
+    margin-top:15px;*/
+    
+    margin:10px;
     width:320px;
     height:320px;
     overflow:hidden;
     text-align:center;
 }
-.posts_element_content{
-    width:320px;
-    height:320px;
+.posts_element_content {
+    width: 320px;
+    height: 320px;
+    background-color: #E3E3E3;
     overflow:hidden;
-    display:flex;
-    justify-content:center;
-    flex-direction:column;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .posts_element p {
     display:none;
@@ -150,6 +180,8 @@
 .posts_element_content *{
     max-height:320px;
 }
+
+
 @keyframes show_nav {
     0%{
         height:0;
@@ -162,14 +194,31 @@
 }
 @keyframes show_img {
     0% {
-        width:0;
-        height:0;
-        margin-top:125px;
+        width: 0;
+        height: 0;
+        margin-top: 125px;
     }
 
     100% {
-        margin-top:0;
+        margin-top: 0;
         width: 250px;
+    }
+}
+@media(max-width : 1300px){
+    .my_profile_content_posts{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+@media(max-width : 1000px) {
+    .posts_element{
+        margin:10px auto;
+    }
+    .my_profile_content_posts {
+        grid-template-columns: repeat(1,1fr);
+    }
+    .my_profile_content_info {
+        flex-direction: column;
+        align-items: center;
     }
 }
 @media(max-width: 450px){
@@ -187,9 +236,6 @@
         top: 85px;
         width: 170px;
         height: 170px;
-    }
-    .my_profile_content_posts{
-        grid-template-columns: repeat(1,1fr);
     }
     @keyframes show_img {
         0% {

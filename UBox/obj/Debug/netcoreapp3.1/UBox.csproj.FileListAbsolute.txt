@@ -227,3 +227,12 @@ C:\Users\George\Source\Repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\UBox.
 C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Post\AddPost.cshtml.g.cs
 C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Search\ProfileSearch.cshtml.g.cs
 C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Profile.cshtml.g.cs
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Profile\_FollowButton.cshtml.g.cs
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
+C:\Users\George\source\repos\GeorgeBakay\UBox\UBox\obj\Debug\netcoreapp3.1\Razor\Views\Home\_PostPartial.cshtml.g.cs

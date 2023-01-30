@@ -11,5 +11,7 @@ namespace UBox.ViewModels
         public User user { get; set; }
         public string imageAvatar { get; set; }
         public List<Post> posts { get; set; }
+        public List<User> followers { get; set; }
+        public List<User> following { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace UBox.Controllers
             List<User> users = _profile.SearchProfile(model.Name);
             foreach(var el in users)
             {
-                byte[] image = _avatarImage.getAvatarImage(el.Id).ImageData;
+                byte[] image = _avatarImage.getAvatarImage(el).ImageData;
                 string imreBase64Data = Convert.ToBase64String(image);
                 obj.ListOfUser.Add(el,  string.Format("data:image/png;base64,{0}", imreBase64Data));
             }

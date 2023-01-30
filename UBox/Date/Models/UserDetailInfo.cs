@@ -13,7 +13,9 @@ namespace UBox.Date.Models
         //Користувач (власник данних)
         public User user { get; set; }
         public int? userId { get; set; }
-        //Спосок постів користувача
+        public int avatarId { get; set; }
+        public UserAvatarImage avatar { get; set; } = null;
+        //Список постів користувача
         public virtual ICollection<Post> posts { get; set; } = new List<Post>();
         //Список користувачів на яких підписано
         public virtual ICollection<FollowArray> follower { get; set; } = new List<FollowArray>();

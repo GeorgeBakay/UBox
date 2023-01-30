@@ -12,6 +12,6 @@ namespace UBox.ViewModels
         public User user { get; set; }
         public string imageDataUrl { get; set; }
 
-        public List<Post> ListOfPosts { get; set; }
+        public Dictionary<Post,string> ListOfPosts { get; set; }
     }
 }

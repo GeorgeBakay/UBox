@@ -10,8 +10,8 @@ using UBox.Date;
 namespace UBox.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20230125222338_init1")]
-    partial class init1
+    [Migration("20230126193053_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,9 @@ namespace UBox.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataOfLike")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -139,8 +142,6 @@ namespace UBox.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("AvatarImages");
                 });
 
@@ -151,10 +152,16 @@ namespace UBox.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("avatarId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("userId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("avatarId")
+                        .IsUnique();
 
                     b.HasIndex("userId")
                         .IsUnique()
@@ -198,17 +205,13 @@ namespace UBox.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UBox.Date.Models.UserAvatarImage", b =>
-                {
-                    b.HasOne("UBox.Date.Models.UserDetailInfo", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("UBox.Date.Models.UserDetailInfo", b =>
                 {
+                    b.HasOne("UBox.Date.Models.UserAvatarImage", "avatar")
+                        .WithOne("User")
+                        .HasForeignKey("UBox.Date.Models.UserDetailInfo", "avatarId")
+                        .IsRequired();
+
                     b.HasOne("UBox.Date.Models.User", "user")
                         .WithOne("userDetailInfo")
                         .HasForeignKey("UBox.Date.Models.UserDetailInfo", "userId");
